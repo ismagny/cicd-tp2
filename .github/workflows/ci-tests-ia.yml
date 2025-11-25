@@ -1,0 +1,43 @@
+name: CI - Tests Automatisés avec IA
+
+on:
+  push:
+    branches: [ ismail ]
+
+jobs:
+  test-and-analyze:
+    name: Tests + Analyse IA
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [ 3.11.9 ]
+
+
+    steps:
+    - name: Checkout repos
+      uses: actions/checkout@v4
+
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Setup chrome
+      uses: browser-actions/setup-chrome@latest
+
+    - name: test-reports
+      uses: actions/upload-artifact@v3
+      with:
+        path: reports/
+        retention-days: 30
+
+    - name: screenshots
+      uses: actions/upload-artifact@v3
+      with:
+        path: screenshots/
+        retention-days: 30
+    continue-on-error: true
+
+
