@@ -28,16 +28,17 @@ jobs:
       uses: browser-actions/setup-chrome@latest
 
     - name: test-reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: reports/
         retention-days: 30
+      continue-on-error: true
 
     - name: screenshots
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         path: screenshots/
         retention-days: 30
-    continue-on-error: true
+      continue-on-error: true
 
 
